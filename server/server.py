@@ -256,7 +256,7 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self,*args):pass  # Never write credentials or tokens to access logs.
     def do_GET(self):
         status=200 if self.path=='/health' else 404
-        payload=json.dumps({'ok':True,'version':'8.0','protocol':8} if status==200 else {'error':'Not found'}).encode()
+        payload=json.dumps({'ok':True,'version':'8.0','build':'8.2-unity','protocol':8,'features':['interiors','cart','appearance']} if status==200 else {'error':'Not found'}).encode()
         self.send_response(status);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(payload)));self.send_header('Cache-Control','no-store');self.send_header('Connection','close');self.end_headers()
         try:self.wfile.write(payload)
         except (BrokenPipeError,ConnectionResetError):pass
