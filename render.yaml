@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ukraine-family-test
+    runtime: python
+    region: frankfurt
+    plan: free
+    buildCommand: python -m unittest discover -s server -q
+    startCommand: python server/server.py --db /tmp/family.sqlite3 serve --bind 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: "off"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: PYTHONUNBUFFERED
+        value: "1"
